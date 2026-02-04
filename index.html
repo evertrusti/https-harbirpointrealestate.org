@@ -1,136 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Harbir Point Real Estate</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HarbirPoint Law & Real Estate</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; background:#f5f7fa; color:#222; }
-    header { background:#0f2a44; color:#fff; padding:20px; }
-    nav a { color:#fff; margin-right:15px; text-decoration:none; font-weight:bold; }
-    nav a:hover { text-decoration: underline; }
-    .hero { padding:80px 20px; text-align:center; background:url('https://images.unsplash.com/photo-1560518883-ce09059eeffa') center/cover no-repeat; color:#fff; }
-    .hero h2 { font-size:36px; }
-    .hero p { font-size:18px; max-width:700px; margin:auto; }
-    .section { padding:40px 20px; max-width:1100px; margin:auto; }
-    .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
-    .card { background:#fff; padding:20px; border-radius:10px; box-shadow:0 6px 15px rgba(0,0,0,.08); text-align:center; }
-    .card img { width:100%; height:200px; object-fit:cover; border-radius:8px; margin-bottom:15px; }
-    .btn { display:inline-block; padding:12px 20px; background:#0f2a44; color:#fff; border-radius:5px; text-decoration:none; }
-    h2 { color:#0f2a44; }
-    footer { background:#0f2a44; color:#fff; text-align:center; padding:15px; }
-    #mapModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; }
-    #mapModal iframe { width:80%; height:70%; border:none; border-radius:10px; }
-    #mapModal .close { position:absolute; top:20px; right:30px; font-size:30px; color:#fff; cursor:pointer; }
-    form { display:flex; flex-direction:column; max-width:600px; margin:auto; }
-    form input, form textarea { margin-bottom:15px; padding:10px; border-radius:5px; border:1px solid #ccc; }
-    form button { padding:12px; background:#0f2a44; color:#fff; border:none; border-radius:5px; cursor:pointer; }
+    /* BASE */
+    body { font-family: Arial, sans-serif; margin:0; color:#222; line-height:1.6; }
+    a { text-decoration:none; color:inherit; }
+    h1,h2,h3 { margin:0; }
+
+    /* BUTTON */
+    .btn { display:inline-block; background:#1a1a1a; color:#f4c542; padding:12px 25px; border-radius:5px; font-weight:bold; transition:0.3s; }
+    .btn:hover { background:#000; color:#fff; }
+
+    /* HEADER */
+    header { background:#1a1a1a; color:#f4c542; padding:20px 40px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+    header h1 { font-size:24px; }
+    nav a { color:#f4c542; margin-left:20px; font-weight:bold; }
+    nav a:hover { text-decoration:underline; }
+
+    /* HERO */
+    .hero { position:relative; color:#fff; height:90vh; display:flex; align-items:center; justify-content:center; text-align:center; background:url('https://images.unsplash.com/photo-1581091215365-19f30d63c7f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MTI1NjB8MHwxfGFsbHwxfHxsaWdhdCwgcGFwZXJzJTIwYW5kJTIwcmVhbCUyMGVzdGF0ZXxlbnwwfHx8fDE2ODY5OTUwNTZ8&ixlib=rb-4.0.3&q=80&w=1600') center/cover no-repeat; }
+    .hero div { background:rgba(0,0,0,0.7); padding:50px; border-radius:15px; max-width:800px; }
+    .hero h1 { font-size:48px; margin-bottom:20px; }
+    .hero p { font-size:20px; margin-bottom:30px; }
+
+    /* SECTIONS */
+    section { padding:80px 20px; }
+    #about, #services, #faq, #contact { max-width:1200px; margin:auto; }
+
+    /* CARDS */
+    .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:30px; }
+    .card { background:#fff; padding:30px; border-radius:15px; box-shadow:0 10px 25px rgba(0,0,0,0.08); text-align:center; transition:all 0.3s ease; }
+    .card:hover { transform:translateY(-10px); box-shadow:0 20px 40px rgba(0,0,0,0.12); }
+    .card img { width:60px; height:60px; margin-bottom:20px; }
+
+    /* TEAM */
+    #team .card img { width:120px; height:120px; border-radius:50%; margin-bottom:20px; object-fit:cover; }
+
+    /* FORM */
+    #contact form, #newsletter form { display:flex; flex-direction:column; max-width:600px; margin:auto; }
+    #contact input, #contact textarea, #newsletter input { margin-bottom:15px; padding:10px; border-radius:5px; border:1px solid #ccc; }
+    #contact button, #newsletter button { padding:12px; border:none; border-radius:5px; cursor:pointer; background:#1a1a1a; color:#f4c542; font-weight:bold; }
+    #contact button:hover, #newsletter button:hover { background:#000; color:#fff; }
+
+    /* FOOTER */
+    footer { background:#1a1a1a; color:#f4c542; text-align:center; padding:20px; font-size:14px; }
+    footer a { color:#f4c542; text-decoration:underline; }
+
+    /* MEDIA */
+    @media(max-width:768px){
+      .hero h1 { font-size:36px; }
+      .hero p { font-size:18px; }
+      header { flex-direction:column; align-items:flex-start; }
+      nav a { margin-left:0; margin-top:10px; }
+    }
   </style>
-  <script>
-    function openMap() { document.getElementById('mapModal').style.display='flex'; }
-    function closeMap() { document.getElementById('mapModal').style.display='none'; }
-  </script>
 </head>
 <body>
 
+  <!-- HEADER -->
   <header>
-    <h1>Harbir Point Real Estate</h1>
+    <h1>HarbirPoint Law & Real Estate</h1>
     <nav>
       <a href="#home">Home</a>
-      <a href="#about">About Us</a>
+      <a href="#about">About</a>
       <a href="#services">Services</a>
-      <a href="#team">Our Team</a>
-      <a href="#recruiting">Recruiting</a>
+      <a href="#team">Team</a>
+      <a href="#faq">FAQ</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#newsletter">Newsletter</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
+  <!-- HERO -->
   <section id="home" class="hero">
-    <h2>Trusted Property, Legal & Escrow Services</h2>
-    <p>We connect buyers, sellers, attorneys, and escrow professionals to ensure secure and transparent transactions.</p>
-    <a class="btn" href="#contact">Get Started</a>
-  </section>
-
-  <section id="about" class="section">
-    <h2>About Us</h2>
-    <p>Harbir Point Real Estate is a professional firm specializing in real estate transactions, legal fund recovery, and secure escrow management. Our mission is to protect our clients' assets while providing expert legal and escrow support.</p>
-  </section>
-
-  <section id="services" class="section">
-    <h2>Our Services</h2>
-    <div class="cards">
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be" alt="Property Services">
-        <strong>Property Buying & Selling</strong><br/>Residential and commercial transactions with legal oversight.
-      </div>
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f" alt="Legal Services">
-        <strong>Attorney Services</strong><br/>Legal representation, dispute resolution, and fund recovery.
-      </div>
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1605902711622-cfb43c4437d1" alt="Escrow Services">
-        <strong>Escrow Management</strong><br/>Secure holding and release of funds for protected transactions.
-      </div>
+    <div>
+      <h1>Your Trusted Legal Partner</h1>
+      <p>Providing expert legal guidance and representation with integrity and dedication.</p>
+      <a href="#services" class="btn">Get a Free Consultation</a>
     </div>
   </section>
 
-  <section id="team" class="section">
-    <h2>Our Team</h2>
+  <!-- ABOUT -->
+  <section id="about">
+    <h2>A Legacy of Justice & Excellence</h2>
+    <p>At <strong>HarbirPoint Law & Real Estate</strong>, we uphold the highest standards of legal practice. Our team provides unparalleled legal representation across various domains.</p>
+    <p>Client-focused and results-driven, we aim for the best outcomes with integrity and dedication.</p>
+    <a href="#services" class="btn">Learn More</a>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" style="background:#f9f9fb;">
+    <h2 style="text-align:center; font-size:36px; color:#1a1a1a; margin-bottom:50px;">Our Services</h2>
     <div class="cards">
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e" alt="Habir Sanches">
-        <strong>Habir Sanches</strong><br/>Owner & Attorney<br/>
-        <em>Specializes in property law and fund recovery with 15+ years of experience.</em>
-      </div>
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12" alt="James Luis">
-        <strong>James Luis</strong><br/>Attorney<br/>
-        <em>Focused on dispute resolution and legal compliance in real estate transactions.</em>
-      </div>
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2" alt="Andra Gregory">
-        <strong>Andra Gregory</strong><br/>Shareholder<br/>
-        <em>Oversees operations and strategic growth of the firm.</em>
-      </div>
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df" alt="Linda Marris">
-        <strong>Linda Marris</strong><br/>Escrow Manager<br/>
-        <em>Expert in secure escrow management and client fund protection.</em>
-      </div>
+      <div class="card"><img src="https://img.icons8.com/ios-filled/100/1a1a1a/briefcase.png"><strong>Corporate Law</strong><p>Business formation, contracts, mergers, acquisitions, compliance.</p></div>
+      <div class="card"><img src="https://img.icons8.com/ios-filled/100/1a1a1a/family.png"><strong>Family Law</strong><p>Divorce, child custody, and domestic matters handled sensitively.</p></div>
+      <div class="card"><img src="https://img.icons8.com/ios-filled/100/1a1a1a/gavel.png"><strong>Litigation</strong><p>Court representation for civil disputes, criminal defense, and appeals.</p></div>
+      <div class="card"><img src="https://img.icons8.com/ios-filled/100/1a1a1a/home.png"><strong>Real Estate Law</strong><p>Property transactions, landlord-tenant issues, and disputes.</p></div>
+      <div class="card"><img src="https://img.icons8.com/ios-filled/100/1a1a1a/accident.png"><strong>Personal Injury</strong><p>Advocacy for victims of accidents and negligence.</p></div>
+      <div class="card"><img src="https://img.icons8.com/ios-filled/100/1a1a1a/plan.png"><strong>Estate Planning</strong><p>Wills, trusts, probate, and asset protection guidance.</p></div>
+      <div class="card"><img src="https://img.icons8.com/ios-filled/100/1a1a1a/safe.png"><strong>Escrow Management</strong><p>Secure holding and release of funds for transactions.</p></div>
+    </div>
+    <div style="text-align:center; margin-top:40px;"><a href="#contact" class="btn">Discuss Your Case</a></div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team">
+    <h2>Meet Our Expert Team</h2>
+    <div class="cards">
+      <div class="card"><img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e"><strong>Habir Sanches</strong><em>Owner & Attorney</em><p>Specializes in property law and fund recovery with 15+ years of experience.</p></div>
+      <div class="card"><img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12"><strong>James Luis</strong><em>Attorney</em><p>Focused on dispute resolution and legal compliance in real estate transactions.</p></div>
+      <div class="card"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2"><strong>Andra Gregory</strong><em>Shareholder</em><p>Oversees operations and strategic growth of the firm.</p></div>
+      <div class="card"><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df"><strong>Linda Marris</strong><em>Escrow Manager</em><p>Expert in secure escrow management and client fund protection.</p></div>
+      <div class="card"><img src="https://images.unsplash.com/photo-1603415526960-f8f0b0f7a0c8"><strong>Andrew Habir</strong><em>Founder & Attorney</em><p>A mature, experienced black attorney with 20+ years in law and property management.</p></div>
     </div>
   </section>
-
-  <section id="recruiting" class="section">
-    <h2>Recruiting</h2>
-    <p>We are always looking for experienced attorneys, escrow officers, and real estate professionals to join our growing team.</p>
-    <p>Email your resume to: careers@harbirpointrealestate.org</p>
-  </section>
-
-  <section id="contact" class="section">
-    <h2>Contact Us</h2>
-    <form action="contact-form-handler.php" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <input type="tel" name="phone" placeholder="Your Phone" required>
-      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-    <p><strong>Phone:</strong> +1 (847) 447-6952</p>
-    <p><strong>Email:</strong> info@harbirpointrealestate.org</p>
-    <p><strong>Website:</strong> <a href="https://harbirpointrealestate.org" target="_blank">harbirpointrealestate.org</a></p>
-    <p><strong>Office Address:</strong> Address available upon request</p>
-    <button class="btn" onclick="openMap()">View Map</button>
-  </section>
-
-  <div id="mapModal" onclick="closeMap()">
-    <span class="close" onclick="closeMap()">&times;</span>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.019544973043!2d-122.41941508468166!3d37.77492927975961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858064c0a2dbf3%3A0x1234567890abcdef!2sSan%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1610000000000" allowfullscreen></iframe>
-  </div>
-
-  <footer>
-    <p>© 2026 Harbir Point Real Estate. All rights reserved.</p>
-    <p>Website: <a href="https://harbirpointrealestate.org" target="_blank">harbirpointrealestate.org</a></p>
-  </footer>
 
 </body>
 </html>
+
